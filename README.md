@@ -97,7 +97,6 @@ for i in "${!datasets[@]}"; do
     dataset="${datasets[$i]}"
     output_prefix="${output_dir_prefixes[$i]}"
 
-    # 这里放你的训练命令
     echo "dataset: $dataset"
     echo "output: $output_prefix"
 
