@@ -1,0 +1,43 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment directories
+venv/
+env/
+ENV/
+
+# IDE files (for VSCode)
+.vscode/
+
+# IDE files (for PyCharm)
+.idea/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Log files
+*.log
+
+# System files (macOS and Windows)
+.DS_Store
+Thumbs.db
+
+# Compiled files (e.g., C, C++ object files)
+*.class
+*.o
+*.a
+
+# Environment configuration files
+.env
+*.env
+
+# Container configuration files (Docker)
+Dockerfile
+docker-compose.yml
+*.tar
+
+# Temporary files (e.g., swap files, backup files)
+*.swp
+*~
