@@ -1,0 +1,7 @@
+datasets==2.19.1
+fastapi==0.115.6
+huggingface-hub==0.27.0
+openai==1.63.0
+rewardbench==0.1.4
+transformers==4.46.0
+vllm==0.6.5

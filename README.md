@@ -1,20 +1,35 @@
-# Agentic Reward Modeling
+<p align="center">
+    <img src="./images/logo.jpg" alt="Agentic Reward Modeling" width="600"/>
+</p>
+
+---------
 Agentic reward modeling is a reward system that combines reward models with **verifiable correctness signals** from different aspects to provide reliable rewards. 
 We empirically implement a reward agent in this repo, named **RewardAgent**, that combines human preference rewards with two verifiable signals: **factuality** and **instruction following**, to provide more reliable rewards. The overall architecture of RewardAgent is as follows: 
+
 <p align="center">
-    <img src="./images/figure2.jpg" alt="RewardAgent Architecture" width="600"/>
+    <img src="./images/figure2.jpg" alt="RewardAgent Architecture" width="700"/>
 </p>
 <!-- ![RewardAgent Architecture](./images/figure2.jpg) -->
 
-# 0. Prerequisites
+RewardAgent demonstrates impressive results on reward model benchmarks, best-of-n search, and DPO training. The figure below presents the best-of-n search results, with Llama3-8B-Instruct as the policy model.
+<p align="center">
+    <img src="./images/best-of-n.png" alt="Best-of-N Search" width="800"/>
+</p>
+
+For more details, please refer to our paper.
+
+----------
+
+# 0. Setup
 Before running any of the scripts, ensure you have the necessary environment set up. You can install the required dependencies using the requirements.txt file:
 ```bash
 pip install -r requirements.txt
 ```
 If you are using non-API-based LLMs, you need to deploy the LLM locally first. You can refer to the vllm_serve.sh script for deployment. Here is an example of how to deploy a local LLM:
+
 **Deploy Llama3-8B-Instruct**
 ```bash
-CUDA_VISIBLE_DEVICES=2 vllm serve <path-to-llama3-8b-instruct> \
+CUDA_VISIBLE_DEVICES=2 vllm serve <path> \
     --served-model-name llama-3-8b \
     --port 8001 \
     --tensor-parallel-size 1 \
@@ -23,17 +38,17 @@ CUDA_VISIBLE_DEVICES=2 vllm serve <path-to-llama3-8b-instruct> \
 ```
 **Deploy Qwen2.5-Coder 7B**
 ```bash
-CUDA_VISIBLE_DEVICES=3 vllm serve <path-to-qwen2.5-coder-7b> \
+CUDA_VISIBLE_DEVICES=3 vllm serve <path> \
     --served-model-name qwen25-coder-7b \
     --port 8002 \
     --tensor-parallel-size 1 \
     --max-model-len 8192 \
     --gpu-memory-utilization 0.9
 ```
-Replace <path-to-llama3-8b-instruct> and <path-to-qwen2.5-coder-7b> with the actual paths to your models.
+Replace `<path>` with the actual paths to your models.
 
 
-# 1. Docker Environment Setup (Optionally)
+<!-- # 1. Docker Environment Setup (Optionally)
 To ensure a consistent and safe environment for running all scripts, it is recommended to use a Docker container. You can also choose not to use the Docker environment.
 ### Dockerfile
 Create a Dockerfile in the root directory of your project:
@@ -68,14 +83,14 @@ docker build -t reward-modeling-env .
 ```
 ### Run the Docker container:
 ```bash
-docker run -it --rm --name reward-modeling-container -v $(pwd):/app -w /app reward-modeling-env
+docker run -it --rm --name reward-modeling-container -p 8001:8001 -p 8002:8002 -v $(pwd):/app -w /app reward-modeling-env
 ```
-This command mounts the current directory to /app inside the container, allowing you to access and modify files as needed.
+This command mounts the current directory to /app inside the container, allowing you to access and modify files as needed. -->
 
 
-# 2. Reward Modeling Benchmarking
-The run_rm_eval_batch.sh script is used to run the reward modeling benchmark. The benchmark data is located in the `data/` directory, and the results will be stored in the `eval_results/` directory.
-To run this script inside the Docker container, execute (`run_rm_eval_batch.sh`):
+# 1. Reward Modeling Benchmarking
+The `run_rm_eval_batch.sh` script is used to run the reward modeling benchmark. The benchmark data is located in the `data/` directory, and the results will be stored in the `eval_results/` directory. **IFBench** is newly constructed and can also be found in [here](https://huggingface.co/datasets/THU-KEG/IFBench).
+To run this script, execute (`run_rm_eval_batch.sh`):
 ```bash
 #!/bin/bash
 datasets=(RM-Bench/total_dataset.chat_normal_converted.json RM-Bench/total_dataset.chat_hard_converted.json JudgeBench/judgebench-knowledge.json IFBench/data.converted.json)
@@ -116,8 +131,9 @@ done
 ```
 
 
-# 3. Best-of-N Search with RewardAgent
+# 2. Best-of-N Search with RewardAgent
 **Note**: Before running `run_bon.sh`, you need to generate n responses in the `best_of_n` directory. The script `best_of_n/run_generation.sh` is provided for this purpose.
+
 To generate n responses, navigate to the best_of_n directory and run:
 bash
 ```
@@ -134,8 +150,9 @@ python generate.py \
 This script will generate the necessary responses for the best-of-n search.
 
 
+
 The `run_bon.sh` script is used to run the best-of-n search with the RewardAgent. This script iterates over different values of n (2, 4, 8, 16, 32) and runs the search for each value.
-To run this script inside the Docker container, execute (`run_bon.sh`):
+To run this script, execute (`run_bon.sh`):
 ```bash
 for n in 2 4 8 16 32
 do
@@ -157,10 +174,10 @@ You can change the file path accordingly.
 
 
 
-# 4. Preference Pairs Annotation with RewardAgent
+# 3. Preference Pairs Annotation with RewardAgent
 **Note**: Before running `run_annotation.sh`, you may also need to generate n responses (on-policy) in the `best_of_n` directory.
 The `run_annotation.sh` script is used to run the annotation of preference pairs with the RewardAgent. This script processes a specific dataset and generates annotated results.
-To run this script inside the Docker container, execute (`run_annotation.sh`):
+To run this script, execute (`run_annotation.sh`):
 ```bash
 file="8_responses"
 
@@ -179,12 +196,13 @@ CUDA_VISIBLE_DEVICES=5 python scripts/run_annotation.py \
 ```
 You can change the file path accordingly.
 
-# 5. Deploying Verifiable Signals as a Service
+# 4. Deploying Verifiable Signals as a Service
 You can also deploy the verifiable signals as a service for plug-and-play integration with existing reward models. This allows you to combine the verifiable signals with reward models to participate in RL training seamlessly.
+
 To deploy the verifiable signals as a service, you can use the `reward_agent/server.py` script. This script sets up a web service that exposes the verifiable signals via HTTP endpoints.
 Once the service is running, you can integrate it with your RL training pipeline. The service provides endpoints for accessing the verifiable signals.
 
-# 6. Acknowledgements
+# 5. Acknowledgements
 Our repository references the [RewardBench](https://github.com/allenai/reward-bench) repository. We appreciate the valuable insights and foundational work provided by the RewardBench team.
-# 7. Citation
+# 6. Citation
 If you find our repository useful, kindly cite:
