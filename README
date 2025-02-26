@@ -189,5 +189,3 @@ Once the service is running, you can integrate it with your RL training pipeline
 Our repository references the [RewardBench](https://github.com/allenai/reward-bench) repository. We appreciate the valuable insights and foundational work provided by the RewardBench team.
 # 7. Citation
 If you find our repository useful, kindly cite:
-```
-```
