@@ -7,7 +7,7 @@ Agentic reward modeling is a reward system that combines reward models with **ve
 We empirically implement a reward agent in this repo, named **RewardAgent**, that combines human preference rewards with two verifiable signals: **factuality** and **instruction following**, to provide more reliable rewards. The overall architecture of RewardAgent is as follows: 
 
 <p align="center">
-    <img src="./images/figure2.jpg" alt="RewardAgent Architecture" width="700"/>
+    <img src="./images/figure2.jpg" alt="RewardAgent Architecture" width="650"/>
 </p>
 <!-- ![RewardAgent Architecture](./images/figure2.jpg) -->
 
@@ -134,9 +134,8 @@ done
 # 2. Best-of-N Search with RewardAgent
 **Note**: Before running `run_bon.sh`, you need to generate n responses in the `best_of_n` directory. The script `best_of_n/run_generation.sh` is provided for this purpose.
 
-To generate n responses, navigate to the best_of_n directory and run:
-bash
-```
+To generate n responses, navigate to the `best_of_n` directory and run (`run_generation.sh`):
+```bash
 export OPENAI_BASE_URL="xxxx"
 export OPENAI_API_KEY="xxx"
 python generate.py \
