@@ -24,58 +24,6 @@ class Planner:
         self.model = model
 
     
-    def plan_01(self, instruction, response):
-        """
-        Determine whether the given instruction and response require a constraint check or a factuality check.
-
-        Args:
-            instruction (str): The instruction provided.
-            response (str): The generated response.
-
-        Returns:
-            dict: A dictionary with keys 'constraint_check' and 'factuality_check', each mapping to a boolean.
-        """
-        # Define the prompt to be sent to the model
-        # prompt = (
-        #     "Given the following instruction and response, determine whether a constraint check or factuality check is required. "
-        #     "Provide your answer in the format: 'constraint_check: <True/False>, factuality_check: <True/False>'.\n\n"
-        #     f"Instruction: {instruction}\n"
-        #     f"Response: {response}\n\n"
-        #     "Answer:"
-        # )
-        prompt = f"""
-        Instruction: {instruction}
-
-        Given the above instruction, determine whether a constraint check or factuality check is required.
-
-        A 'constraint check' is required if the instruction contains any additional constraints on the output, such as length, keywords, format, number of sections, frequency, etc.
-        A 'factuality check' is required if the generated response contains claims about information or world knowledge.
-
-        If a 'constraint check' is needed, your output should only consist of [[C]].
-        If a 'factuality check' is needed, your output  should only consist of [[F]]. 
-        """
-        messages = [
-            {"role": "user", "content": prompt}
-        ]
-
-        # Use the model to generate a decision
-        output = self.model.generate_chat(messages)
-
-        # Parse the output to extract decisions
-        decisions = {
-            "constraint_check": False,
-            "factuality_check": False
-        }
-
-        if "[[C]]" in output:
-            decisions["constraint_check"] = True
-        if "[[F]]" in output:
-            decisions["factuality_check"] = True
-
-        # import pdb; pdb.set_trace()
-        return decisions
-
-    
     def plan(self, instruction):
         """
         Determine whether the given instruction and response require a constraint check or a factuality check.
