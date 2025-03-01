@@ -3,7 +3,7 @@
 </p>
 
 ---------
-Agentic reward modeling is a reward system that combines reward models with **verifiable correctness signals** from different aspects to provide reliable rewards. 
+[Agentic reward modeling](https://arxiv.org/abs/2502.19328) is a reward system that combines reward models with **verifiable correctness signals** from different aspects to provide reliable rewards. 
 We empirically implement a reward agent in this repo, named **RewardAgent**, that combines human preference rewards with two verifiable signals: **factuality** and **instruction following**, to provide more reliable rewards. The overall architecture of RewardAgent is as follows: 
 
 <p align="center">
@@ -16,7 +16,7 @@ RewardAgent demonstrates impressive results on reward model benchmarks, best-of-
     <img src="./images/best-of-n.png" alt="Best-of-N Search" width="800"/>
 </p>
 
-For more details, please refer to our paper.
+For more details, please refer to our [paper](https://arxiv.org/abs/2502.19328).
 
 ----------
 
