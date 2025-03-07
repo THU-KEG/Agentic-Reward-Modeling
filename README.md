@@ -205,3 +205,11 @@ Once the service is running, you can integrate it with your RL training pipeline
 Our repository references the [RewardBench](https://github.com/allenai/reward-bench) repository. We appreciate the valuable insights and foundational work provided by the RewardBench team.
 # 6. Citation
 If you find our repository useful, kindly cite:
+```
+@article{peng2025agentic,
+  title={Agentic Reward Modeling: Integrating Human Preferences with Verifiable Correctness Signals for Reliable Reward Systems},
+  author={Peng, Hao and Qi, Yunjia and Wang, Xiaozhi and Yao, Zijun and Xu, Bin and Hou, Lei and Li, Juanzi},
+  journal={arXiv preprint arXiv:2502.19328},
+  year={2025}
+}
+```
