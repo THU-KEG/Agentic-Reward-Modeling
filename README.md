@@ -7,7 +7,7 @@
 ## 📢 News
 - 🧪 **June 2025**: We release a new paper, [repo](https://github.com/THU-KEG/VerIF), and [models](https://huggingface.co/collections/THU-KEG/verif-68491ef7794ee488a5928c61) that apply the spirit of Agentic Reward Modeling in RL for instruction-following.
 
-- 🔥 **May 2025**: Our paper [Agentic Reward Modeling: Integrating Human Preferences with Verifiable Correctness Signals for Reliable Reward Systems](https://arxiv.org/abs/2502.19328) is accepted by ACL 2025! Welcome more discussion in Vienna , Austria.
+- 🔥 **May 2025**: Our paper [Agentic Reward Modeling: Integrating Human Preferences with Verifiable Correctness Signals for Reliable Reward Systems](https://arxiv.org/abs/2502.19328) has been accepted by ACL 2025! We welcome further discussions in Vienna, Austria.
 ------
 
 [Agentic reward modeling](https://arxiv.org/abs/2502.19328) is a reward system that combines reward models with **verifiable correctness signals** from different aspects to provide reliable rewards. 
